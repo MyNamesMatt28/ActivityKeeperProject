@@ -23,6 +23,9 @@ document.addEventListener('DOMContentLoaded', function() {
         selectable: true,
         nowIndicator: true,
 
+        height: 'auto',     
+        contentHeight: 'auto', 
+
         headerToolbar: {
             left: 'prev,next,today',
             center: 'title',

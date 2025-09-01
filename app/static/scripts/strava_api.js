@@ -25,8 +25,17 @@ async function reAuthorize(num) {
     return await response;
 }
 
-async function get_activities(num) {
+
+
+async function get_activities(num, activities_cached) {
+
+  if (!activities_cached) {
     await reAuthorize(num).then((res) => {
-        localStorage.setItem("activities", JSON.stringify(res));
-    });
+      localStorage.setItem("activities", JSON.stringify(res));
+      });
+  }
+
+  adjust_graphs("time");
+
 }
+

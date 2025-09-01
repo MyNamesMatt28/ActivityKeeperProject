@@ -1,0 +1,108 @@
+<!doctype html>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Running Tool</title>
+
+  <link rel="icon" href="../static/media/images/favicon.ico">
+
+  <!-- HTMX -->
+  <script src="https://unpkg.com/htmx.org@2.0.3"></script>
+
+  <!-- Tailwind -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Chart.js + fontawesome -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+  <script src="https://kit.fontawesome.com/b9ed5d7fd5.js"></script>
+
+
+  <!-- FullCalendar core CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.css" rel="stylesheet">
+
+  <!-- FullCalendar core JS -->
+  <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js"></script>
+
+  <!-- Custom scripts -->
+  <script src="../static/scripts/pace.js"></script>
+  <script src="../static/scripts/schedule.js"></script>
+  <script src="../static/scripts/strava_api.js"></script>
+  <script src="../static/scripts/utils.js"></script>
+  <script src="../static/scripts/script.js"></script>
+
+
+</head>
+
+<html class="font-light h-full select-none">
+
+  <body class="h-full flex flex-col bg-gradient-to-t from-blue-600 to-blue-800" hx-boost="false">
+    
+    <!-- Navbar -->    
+    <header class="flex flex-row text-white justify-between items-start px-6 py-2 text-3xl top-0 sticky  z-10">
+
+      <!-- Left side items -->
+      <div class="flex flex-row">
+
+        <!-- Home -->
+        <a href="/">
+            <button class="text-white bg-blue-900 hover:bg-blue-950 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 focus:outline-none shadow-lg">Home</button>
+        </a>
+
+        <!-- Create Schedule -->
+        <a href="{{ url_for('home.create_schedule') }}">
+            <button class="text-white bg-blue-900 hover:bg-blue-950 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 focus:outline-none shadow-lg">Create Schedule</button>
+        </a>
+
+        <!-- Tool Dropdown -->
+        <div id="tools-container">
+
+          <!-- Tool Button -->
+          <button id="tools-btn" class="inline-flex text-white bg-blue-900 hover:bg-blue-950 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 focus:outline-none shadow-lg">
+              <p class="pr-2">Tools</p>
+              <i class=" pt-1 fa fa-angle-down"></i>
+          </button>
+
+          <!-- Tools -->
+          <div id="tools-dropdown" class="invisible z-10 w-max rounded-md text-white bg-blue-900 shadow-lg" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1">
+              <div class="flex flex-col w-full items-center" role="none">
+                <a href="{{ url_for('home.easy_pace') }}">
+                      <button class="flex px-4 py-2 rounded-lg text-sm hover:bg-blue-950">Find Your Pace</button>
+                </a>
+                <a href="{{ url_for('home.pace_conversion') }}">
+                      <button class="flex px-4 py-2 rounded-lg text-sm hover:bg-blue-950">Pace Conversions</button>
+                </a>
+              </div>
+          </div>
+
+        </div>
+
+      </div>
+      <!-- Right side items -->
+      <div class="flex flex-row">
+          <a href="https://github.com/MatthewdeHaas/ActivityKeeperProject" target="_blank">
+              <i class="fa fa-github text-2xl"></i>
+          </a>
+      </div>
+    </header>
+
+    <main class="grow">
+      {% block body %}
+      {% endblock %}
+    </main>
+
+
+  <!-- Footer -->
+    <div class="w-full text-center fixed bottom-1 text-white">
+
+      <div class="text-xs"> <i class="fa fa-copyright"></i>
+        <span class="px-2">
+          2024-2025 Matthew deHaas inc. | every last right reserved
+        </span>
+      </div>
+
+    </div>
+
+  </body>
+
+</html>

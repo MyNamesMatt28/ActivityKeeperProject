@@ -1,8 +1,15 @@
-get_activities(50); // stores the activities in localStorage - TODO: modify so that is returns > 200 activities or if empty return all activities
-const activities_json = JSON.parse(localStorage.getItem("activities"));
+['load','htmx:afterSettle'].forEach( evt => 
+  window.addEventListener(evt, function() {
 
+    const activities_cached = localStorage.getItem("activities"); 
+    get_activities(200, activities_cached);
 
-console.log(activities_json[0].id);
+  })
+);
+
+let activities_json = JSON.parse(localStorage.getItem("activities"));
+
+console.log(activities_json)
 
 function partition_data(activity_data, number_of_weeks, data_type, sport_type=null) {
   var data_x = [];
@@ -52,7 +59,7 @@ function get_data_by_type(data_type, sport_type, index) {
       break;
     case "elev":
       data = parseInt(activities_json[index].total_elevation_gain); // elevation in m
-      break;
+    break;
     case "hr":
       if (activities_json[index].has_heartrate) {
         data = parseInt(activities_json[index].average_heartrate); // heart rate in bpm
@@ -117,38 +124,33 @@ function make_chart(chart_id, data, title, label_y) {
 });
 }
 
-function adjust_graphs(volume_type) {
-  let time_btn = document.getElementById("time-btn");
-  let dist_btn = document.getElementById("dist-btn");
-  let elev_btn = document.getElementById("elev-btn");
-  time_btn.classList.remove("bg-blue-900");
-  time_btn.classList.remove("bg-blue-950");
-  dist_btn.classList.remove("bg-blue-900");
-  dist_btn.classList.remove("bg-blue-950");
-  elev_btn.classList.remove("bg-blue-900");
-  elev_btn.classList.remove("bg-blue-950");
 
+// changes the colours of the buttons in the given list of button ids
+function adjust_buttons(btn_ids, unpressed_col, pressed_col, pressed_btn_id) {
+  for (let i = 0; i < btn_ids.length; i++) {
+    let btn = document.getElementById(btn_ids[i]);
+    btn.classList.remove(unpressed_col);
+    btn.classList.remove(pressed_col);
+    btn_ids[i] == pressed_btn_id ? btn.classList.add(pressed_col) : btn.classList.add(unpressed_col);
+  }
+}
+
+
+function adjust_graphs(volume_type) {
+
+  if (graph) graph.destroy();
 
   switch(volume_type) {
     case "time":
-      time_btn.classList.add("bg-blue-950");
-      dist_btn.classList.add("bg-blue-900");
-      elev_btn.classList.add("bg-blue-900");
-      graph.destroy();
+      adjust_buttons(["time-btn", "dist-btn", "elev-btn"], "bg-blue-900", "bg-blue-950", "time-btn")
       graph = make_chart(document.getElementById("weekly-volume"), partition_data(times, number_of_weeks, "time"), "Weekly Time", "Time (hrs)");
       break;
     case "dist":
-      time_btn.classList.add("bg-blue-900");
-      dist_btn.classList.add("bg-blue-950");
-      elev_btn.classList.add("bg-blue-900");
-      graph.destroy();
+      adjust_buttons(["time-btn", "dist-btn", "elev-btn"], "bg-blue-900", "bg-blue-950", "dist-btn")
       graph = make_chart(document.getElementById("weekly-volume"), partition_data(times, number_of_weeks, "dist", "run"), "Weekly Distance (run)", "Distance (km)");
       break;
     case "elev":
-      time_btn.classList.add("bg-blue-900");
-      dist_btn.classList.add("bg-blue-900");
-      elev_btn.classList.add("bg-blue-950");
-      graph.destroy();
+      adjust_buttons(["time-btn", "dist-btn", "elev-btn"], "bg-blue-900", "bg-blue-950", "elev-btn")
       graph = make_chart(document.getElementById("weekly-volume"), partition_data(times, number_of_weeks, "elev"), "Weekly Elevation", "Elevation (m)");
       break;
   }
@@ -159,5 +161,7 @@ function adjust_graphs(volume_type) {
 var times = [];
 for (let i = 0; i < activities_json.length; i++) {times.push(activities_json[i].start_date)}
 const number_of_weeks = 24;
-let graph = make_chart(document.getElementById("weekly-volume"), partition_data(times, number_of_weeks, "dist", "run"), "Weekly Distance", "Distance (km)");
+
+let graph = null;
+
 
