@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block body %}
+
+  <div class="flex flex-row w-full justify-center items-center text-white text-6xl font-medium pb-10">
+      <h1>Activity Keeper</h1>
+  </div>
+
+  <!-- Main content -->
+  <div class="relative grow w-screen flex flex-row overflow-hidden">
+
+      <!-- Graph -->
+      <div class="grow">
+          <canvas id="weekly-volume"></canvas>
+      </div>
+
+      <!-- Right Sidebar -->
+      <div class="flex flex-row">
+          <div class="grow">
+              <button id="dist-btn" onclick="adjust_graphs('dist')" class="text-white bg-blue-900 hover:bg-blue-950 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 focus:outline-none shadow-lg">Distance</button>
+              <button id="time-btn" onclick="adjust_graphs('time')" class="text-white bg-blue-900 hover:bg-blue-950 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 focus:outline-none shadow-lg">Time</button>
+              <button id="elev-btn" onclick="adjust_graphs('elev')" class="text-white bg-blue-900 hover:bg-blue-950 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 focus:outline-none shadow-lg">Elevation</button>
+          </div>
+      </div>
+
+  </div>
+
+{% endblock %}

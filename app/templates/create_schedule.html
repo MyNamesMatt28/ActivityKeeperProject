@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+
+{% block body %}
+
+  <div class="calendar-layout">
+
+    <!-- Add Session Form -->
+    <div id="add-session-div" class="form-popup p-4 bg-white rounded-lg shadow-lg" hidden>
+      <form id="add-session-form" class="space-y-4">
+
+        <!-- Duration -->
+        <div>
+          <label for="session-duration-input" class="block font-medium">Duration (mins):</label>
+          <input type="text" id="session-duration-input" name="duration" 
+                autocomplete="off" 
+                class="w-full border rounded-md px-2 py-1">
+        </div>
+
+        <!-- Time of Day -->
+        <div>
+          <label for="time-of-day-input" class="block font-medium">Time of day (optional):</label>
+          <input type="time" id="time-of-day-input" name="time-of-day"
+                class="w-full border rounded-md px-2 py-1">
+        </div>
+      </form>
+
+      <!-- Info / Errors -->
+      <div class="mt-2">
+        <label id="schd-lbl" class="block text-sm text-gray-700">
+          Date of Session: today (click on a date)
+        </label>
+        <label id="error-lbl" class="block text-sm text-red-600"></label>
+      </div>
+
+      <!-- Buttons -->
+      <div class="mt-4 flex gap-2">
+        <button id="cancel_session" onclick="hide_form()" 
+                class="btn bg-gray-400 hover:bg-gray-500 p-2 rounded-md">
+          Cancel
+        </button>
+        <button id="add_session" onclick="schedule_session()" 
+                class="btn bg-blue-600 hover:bg-blue-700 text-white p-2 rounded-md">
+          Schedule
+        </button>
+      </div>
+    </div>
+
+    <!-- Calendar -->
+    <div id="calendar" class="mt-6"></div>
+
+  </div>
+
+
+
+{% endblock %}
+

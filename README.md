@@ -7,15 +7,9 @@
 
 ### Current Timeline:
 
-- Implement/discard any lingering ui additions to the site:
-    - [ ] Set goal/goal progress donut graph (doable but will require some data in script.js; ok to leave for later as it won't make the site feel unfinished)
-    - [ ] Customisable graph (data type, sport, number of weeks back, etc.)
-    - [ ] Title and tab logo icon
-    - [ ] Header on the scheduler
-    - [x] Remove the current file index.html and rename home.html to index.html
-    - [ ] Delete styles.css when everything once everything is using tailwind
-- Spend time making the UI look more finished/not so thrown together (Tailwind):
+- [x] Implement/discard any lingering ui additions to the site:
+- [x] Spend time making the UI look more finished/not so thrown together (Tailwind):
     - [x] Home
-    - [ ] Find Pace
-    - [ ] Pace Calculator
-    - [ ] Scheduler
+    - [x] Find Pace
+    - [x] Pace Calculator
+    - [x] Scheduler

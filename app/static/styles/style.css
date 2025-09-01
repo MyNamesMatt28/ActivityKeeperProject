@@ -214,12 +214,6 @@ body {
     gap: 50px 50px;
   }
 
-  #calendar {
-    max-width: 1000px;
-    max-height: 500px;
-    margin: auto auto;
-    
-  }
 
 
   .footer {
